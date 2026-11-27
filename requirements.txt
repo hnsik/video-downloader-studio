@@ -1,4 +1,1 @@
-PySide6
-yt-dlp[default]
-imageio-ffmpeg
-curl_cffi
+PySide6>=6.6
