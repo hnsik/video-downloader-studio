@@ -27,6 +27,8 @@ jobs:
           QT_QPA_PLATFORM: offscreen
         run: python -m pytest -q
       - name: Fetch bundled components (yt-dlp, Deno, FFmpeg)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python tools/fetch_bundled.py bundled
       - name: Build app (PyInstaller)
         run: pyinstaller --noconfirm installer/VideoDownloaderStudio.spec

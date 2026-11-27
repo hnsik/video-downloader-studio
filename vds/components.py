@@ -142,7 +142,11 @@ class HttpClient:
 
     def _open(self, url: str):
         check_trusted(url)
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json, */*"})
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json, */*"}
+        token = os.environ.get("GITHUB_TOKEN", "")
+        if token and urlsplit(url).hostname == "api.github.com":  # только в CI, только на API GitHub
+            headers["Authorization"] = "Bearer " + token
+        req = urllib.request.Request(url, headers=headers)
         return self._opener.open(req, timeout=self.timeout)
 
     def get_text(self, url: str) -> str:
