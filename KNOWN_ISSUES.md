@@ -5,3 +5,4 @@
 - Chrome/Edge/Brave: ошибки DPAPI/блокировки cookie-базы — используйте Firefox или cookies.txt.
 - Новая сборка кладёт файлы в `_internal` рядом с exe; старые файлы там (в т.ч. FFmpeg v5.x) остаются и используются как запасной вариант.
 - Исходный `media_backend.py` и тесты из первого архива в репозитории отсутствуют.
+- **Сборка в GitHub Actions заблокирована биллингом аккаунта** (27.11.2026: «recent account payments have failed or your spending limit needs to be increased»). Установщик пока не собран. Нужно починить оплату/лимит Actions (для приватного репозитория) и перезапустить workflow `Build Windows installer` (Actions → Run workflow) либо собрать вручную по BUILD_WINDOWS.md.
