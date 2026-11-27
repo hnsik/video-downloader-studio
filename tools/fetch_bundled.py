@@ -25,6 +25,7 @@ def verify(http, rel, file: Path) -> None:
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     out = Path(sys.argv[1] if len(sys.argv) > 1 else "bundled")
     out.mkdir(parents=True, exist_ok=True)
     tmp = out / "_dl"
