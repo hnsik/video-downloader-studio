@@ -66,3 +66,17 @@ def fake_ytdlp(tmp_path):
     script.write_text(FAKE_YTDLP)
     script.chmod(0o755)
     return script
+
+
+_POSIX_ONLY_FILES = {"test_engine.py", "test_components.py"}
+_POSIX_ONLY_TESTS = {"test_check_auth_browser_with_fake_engine", "test_note_when_ffprobe_missing"}
+
+
+def pytest_collection_modifyitems(config, items):
+    """Эти тесты подменяют yt-dlp/Deno/FFmpeg shell-скриптами — на Windows запустить такие «exe» нельзя."""
+    if os.name != "nt":
+        return
+    skip = pytest.mark.skip(reason="использует shell-скрипты как поддельные исполняемые файлы (только POSIX)")
+    for item in items:
+        if Path(str(item.fspath)).name in _POSIX_ONLY_FILES or item.name in _POSIX_ONLY_TESTS:
+            item.add_marker(skip)
